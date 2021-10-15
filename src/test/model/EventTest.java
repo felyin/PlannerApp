@@ -17,8 +17,26 @@ class EventTest {
     @Test
     void testSetEvent() {
         assertEquals("Test Event", testEvent.getEventName());
-        assertEquals(7, testEvent.getDate());
-        assertEquals("This event is a test", testEvent.getDescription());
+        assertEquals(7, testEvent.getEventDate());
+        assertEquals("This event is a test", testEvent.getEventDescription());
+    }
+
+    @Test
+    void testSetEventName() {
+        testEvent.setEventName("New Name");
+        assertEquals("New Name", testEvent.getEventName());
+    }
+
+    @Test
+    void testSetEventDate() {
+        testEvent.setEventDate(5);
+        assertEquals(5, testEvent.getEventDate());
+    }
+
+    @Test
+    void testSetEventDescription() {
+        testEvent.setEventDescription("New description");
+        assertEquals("New description", testEvent.getEventDescription());
     }
 
 }

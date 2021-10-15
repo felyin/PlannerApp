@@ -12,7 +12,9 @@ public class Event {
 
     //REQUIRES: String length cannot be 0
     //MODIFIES: this
-    //EFFECTS: Initializes a new event
+    //EFFECTS: Initializes a new event with a name, date, and description. If no input is given for name,
+    //         returns "Unnamed Event". If no date is given, the default date is set as Monday.
+    //         If no description is given, description is set as "No description".
     public Event(String name, int day, String desc) {
         eventName = name;
         date = day;
@@ -24,33 +26,33 @@ public class Event {
         return eventName;
     }
 
-    public int getDate() {
+    public int getEventDate() {
         return date;
     }
 
-    public String getDescription() {
+    public String getEventDescription() {
         return description;
     }
 
 
     //REQUIRES: String length cannot be 0
     //MODIFIES: this
-    //EFFECT: Sets the name of the event to newName
+    //EFFECT: Sets or changes the name of the event to newName.
     public void setEventName(String newName) {
         eventName = newName;
     }
 
 
     //MODIFIES: this
-    //EFFECT: Sets the date of the event to newDate
-    public void setDate(int newDate) {
+    //EFFECT: Sets or changes the date of the event to newDate
+    public void setEventDate(int newDate) {
         date = newDate;
     }
 
 
     //MODIFIES: this
-    //EFFECT: Sets the description of the event to newDesc
-    public void setDescription(String newDesc) {
+    //EFFECT: Sets or changes the description of the event to newDesc
+    public void setEventDescription(String newDesc) {
         description = newDesc;
     }
 
