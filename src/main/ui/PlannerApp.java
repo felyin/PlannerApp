@@ -16,22 +16,28 @@ public class PlannerApp {
         runPlanner();
     }
 
-
+//Code based off of TellerApp
     private void runPlanner() {
         boolean keepGoing = true;
-        String command = null;
 
         initializeEvent();
 
         while (keepGoing) {
             displayMenu();
-            command = input.next();
+            String command = input.next();
             command = command.toLowerCase();
 
             if (command.equals("quit")) {
                 keepGoing = false;
+            } else if (command.equals("new")) {
+                System.out.println("Enter event name:");
+                makeEvent();
+            } else if (command.equals("edit")) {
+                editEvent();
+            } else if (command.equals("list")) {
+                displayEventList();
             } else {
-                processCommand(command);
+                System.out.println("Invalid Selection.");
             }
         }
 
@@ -56,33 +62,15 @@ public class PlannerApp {
         System.out.println("\tquit -> quit");
     }
 
-    // MODIFIES: this
-    // EFFECTS: processes user command
-    private void processCommand(String command) {
-        command = input.next();
-        command = command.toLowerCase();
-
-        if (command.equals("new")) {
-            System.out.println("Enter event name:");
-            makeEvent(input.next());
-        } else if (command.equals("edit")) {
-            editEvent();
-        } else if (command.equals("list")) {
-            displayEventList();
-        } else {
-            System.out.println("Invalid Selection.");
-        }
-    }
-
     //MODIFIES: Event
     //EFFECTS: Makes a new event, sets the name for the event as the user input and then proceeds to setDate
-    private void makeEvent(String command) {
+    private void makeEvent() {
         Event newEvent = new Event("No Name Set",0,"No description");
         String selectedName = input.next();
         if (selectedName.length() > 0) {
             newEvent.setEventName(selectedName);
             System.out.println("Event name has been set as " + selectedName);
-            setDate(input.nextInt(), newEvent);
+            setDate(newEvent);
         } else {
             System.out.println("Please enter a name for your event. \n");
         }
@@ -90,13 +78,13 @@ public class PlannerApp {
 
     //MODIFIES: Event
     //EFFECTS: Sets the date as the user input
-    private void setDate(Integer command, Event newEvent) {
+    private void setDate(Event newEvent) {
         displayDateMenu();
-        command = input.nextInt();
+        Integer date = input.nextInt();
 
-        if (command > 0 && command < 8) {
-            newEvent.setEventDate(command);
-            setEventDescription(input.next(), newEvent);
+        if (date > 0 && date < 8) {
+            newEvent.setEventDate(date);
+            setEventDescription(newEvent);
         } else {
             System.out.println("Please enter a number from 1 to 7.");
         }
@@ -105,7 +93,7 @@ public class PlannerApp {
 
     //EFFECTS: Prints out a menu of dates for the user to see
     private void displayDateMenu() {
-        System.out.print("\nSelect a date for your event: ");
+        System.out.print("\nSelect a date for your event:");
         System.out.println("\t1 -> Monday");
         System.out.println("\t2 -> Tuesday");
         System.out.println("\t3 -> Wednesday");
@@ -118,11 +106,10 @@ public class PlannerApp {
 
     //MODIFIES: Event
     //EFFECTS: Sets the description for the event
-    private void setEventDescription(String command, Event newEvent) {
+    private void setEventDescription(Event newEvent) {
         System.out.println("Please enter a description for your event:");
-        String eventDescription = input.next();
-        eventDescription += input.nextLine();
-        newEvent.setEventDescription(input.next());
+        //String eventDescription = input.toString();
+        newEvent.setEventDescription("eventDescription");
         planner.addEvent(newEvent);
         System.out.println("Event created!");
     }
