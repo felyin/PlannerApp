@@ -32,29 +32,4 @@ public class Planner {
         }
     }
 
-//    public void listAllEvents() {
-//        for (int i = 0; i < schedule.size(); i++) {
-//            //sort by date
-//            //then print name ( date )
-//            Event e = schedule.get(i);
-//
-//        }
-//    }
-
-
-
-    //    public void printBookingsList() {
-    //        for (int i = 9; i < bookings.size(); i++) { //change this to be the wrong end value
-    //            Customer c = bookings.get(i);
-    //            if (c!=null){
-    //                System.out.print(i + "hrs: ");
-    //                c.printName(); //This causes a bug because you can't access methods on a null value!
-    //            }
-    //            else {
-    //                System.out.print(i+"hrs: ");
-    //                System.out.println(" available ");
-    //            }
-    //        }
-    //    }
-
 }
