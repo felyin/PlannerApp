@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Planner {
     private ArrayList<Event> schedule;
-    private Event event;
 
     public Planner() {
         schedule = new ArrayList<>();
@@ -30,6 +29,11 @@ public class Planner {
                 schedule.remove(e);
             }
         }
+    }
+
+    //EFFECTS: Returns the requested Event from the schedule
+    public Event numEvent(int i) {
+        return schedule.get(i);
     }
 
 }

@@ -57,7 +57,16 @@ public class PlannerTest {
     void testRemoveOnlyEventFromPlanner() {
         testPlanner.removeEvent("Event 1");
         assertEquals(0,testPlanner.getPlannerSize());
-
     }
+
+    @Test
+    void testGetThirdEvent() {
+        Event event2 = new Event("Event 2", 2, "Test 2");
+        Event event3 = new Event("Event 3", 3, "Test 3");
+        testPlanner.addEvent(event2);
+        testPlanner.addEvent(event3);
+        assertEquals(testPlanner.numEvent(2), event3);
+    }
+
 
 }

@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 
 public class PlannerApp {
-    private Event event;
     private Planner planner;
     private Scanner input;
 
@@ -16,7 +15,7 @@ public class PlannerApp {
         runPlanner();
     }
 
-//Code based off of TellerApp
+//runPlanner based off of TellerApp
     private void runPlanner() {
         boolean keepGoing = true;
 
@@ -48,7 +47,7 @@ public class PlannerApp {
     // EFFECTS: initializes a new event for the user to modify
     private void initializeEvent() {
         Event newEvent = new Event("No Name Set",0,"No description");
-        Planner planner = new Planner();
+        planner = new Planner();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
@@ -62,6 +61,7 @@ public class PlannerApp {
         System.out.println("\tquit -> quit");
     }
 
+    //REQUIRES: input to be an integer
     //MODIFIES: Event
     //EFFECTS: Makes a new event, sets the name for the event as the user input and then proceeds to setDate
     private void makeEvent() {
@@ -71,6 +71,7 @@ public class PlannerApp {
             newEvent.setEventName(selectedName);
             System.out.println("Event name has been set as " + selectedName);
             setDate(newEvent);
+
         } else {
             System.out.println("Please enter a name for your event. \n");
         }
@@ -93,7 +94,7 @@ public class PlannerApp {
 
     //EFFECTS: Prints out a menu of dates for the user to see
     private void displayDateMenu() {
-        System.out.print("\nSelect a date for your event:");
+        System.out.print("\nSelect a date for your event:\n");
         System.out.println("\t1 -> Monday");
         System.out.println("\t2 -> Tuesday");
         System.out.println("\t3 -> Wednesday");
@@ -108,32 +109,46 @@ public class PlannerApp {
     //EFFECTS: Sets the description for the event
     private void setEventDescription(Event newEvent) {
         System.out.println("Please enter a description for your event:");
-        //String eventDescription = input.toString();
-        newEvent.setEventDescription("eventDescription");
+        String eventDescription = input.next();
+        newEvent.setEventDescription(eventDescription);
+        System.out.println("Description has been set as " + newEvent.getEventDescription());
         planner.addEvent(newEvent);
-        System.out.println("Event created!");
+        String eventDay = new String();
+        if (newEvent.getEventDate() == 1) {
+            eventDay = "Monday";
+        } else if (newEvent.getEventDate() == 2) {
+            eventDay = "Tuesday";
+        } else if (newEvent.getEventDate() == 3) {
+            eventDay = "Wednesday";
+        } else if (newEvent.getEventDate() == 4) {
+            eventDay = "Thursday";
+        } else if (newEvent.getEventDate() == 5) {
+            eventDay = "Friday";
+        } else if (newEvent.getEventDate() == 6) {
+            eventDay = "Saturday";
+        } else if (newEvent.getEventDate() == 6) {
+            eventDay = "Sunday";
+        }
+        System.out.println("Event " + newEvent.getEventName()
+                + " has been scheduled for " + eventDay + "!");
     }
 
     //EFFECTS: Displays a list of all current scheduled events
     private void displayEventList() {
         for (int i = 0; i < planner.getPlannerSize(); i++) {
-            System.out.println(event.getEventName() + " is scheduled for " + event.getEventDate());
+            Event currentEvent = planner.numEvent(i);
+            System.out.println((i + 1) + " -> " + currentEvent.getEventName()
+                    + " is scheduled for " + currentEvent.getEventDate() + "\n");
         }
     }
 
     //EFFECTS: Lets user select the event they want to edit.
     private void editEvent() {
-        System.out.println("Which event would you like to edit? Type in its name.");
+        System.out.println("Which event would you like to edit? Type in its number on the list.");
         displayEventList();
-        Event toEdit;
-        for (int i = 0; i < planner.getPlannerSize(); i++) {
-            if (input.next() == event.getEventName()) {
-                toEdit = event;
-                selectEditOption(toEdit);
-            } else {
-                System.out.println("That event does not exist.");
-            }
-        }
+        Event toEdit = planner.numEvent((input.nextInt()) - 1);
+
+        selectEditOption(toEdit);
     }
 
     //MODIFIES: this
@@ -161,6 +176,7 @@ public class PlannerApp {
     //MODIFIES: thisEvent
     //EFFECTS: Renames the event to the chosen name
     private void renameEvent(Event toEdit) {
+        System.out.println("What would you like to rename it to?");
         toEdit.setEventName(input.next());
         System.out.println("Event has been renamed to " + toEdit.getEventName());
     }
@@ -169,8 +185,9 @@ public class PlannerApp {
     //EFFECTS: Changes the date of the event to a new date
     private void changeEventDate(Event toEdit) {
         displayDateMenu();
-        if (input.nextInt() > 0 && input.nextInt() < 8) {
-            toEdit.setEventDate(input.nextInt());
+        int newDate = input.nextInt();
+        if (newDate > 0 && newDate < 8) {
+            toEdit.setEventDate(newDate);
             System.out.println("Event date has been changed to " + toEdit.getEventDate());
         } else {
             System.out.println("Please select a number from 1 to 7.");
