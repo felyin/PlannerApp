@@ -57,11 +57,11 @@ public class PlannerApp {
     // EFFECTS: processes user command
     private void processCommand(String command) {
         if (command.equals("new")) {
-            makeEvent();
-        } else if (command.equals("edit")) {
-            editEvent();
-        } else if (command.equals("list")) {
-            displayList();
+            makeEvent(input.next());
+ //       } else if (command.equals("edit")) {
+ //           editEvent();
+ //       } else if (command.equals("list")) {
+ //           displayList();
         } else {
             System.out.println("Invalid Selection.");
         }
@@ -77,7 +77,7 @@ public class PlannerApp {
         } else {
             System.out.println("Please enter a name for your event. \n");
         }
-        setDate(command);
+        setDate(input.nextInt());
     }
 
     private void setDate(Integer command) {
@@ -86,7 +86,7 @@ public class PlannerApp {
 
         if (command > 0 && command < 8) {
             event.setEventDate(command);
-            setEventDescription();
+            setEventDescription(input.next());
         } else {
             System.out.println("Please enter a number from 1 to 7.");
         }
