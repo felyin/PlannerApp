@@ -18,7 +18,7 @@ I am interested in this project because every year at the start of the term, I u
 would save me the money of buying a new planner each year, as well as reduce the waste from these physical planners. 
 
 ## User Stories
-- As a user, I want to be able to add an event to my planner
+- As a user, I want to be able to add events to my planner
 - As a user, I want to be able to delete an event on my planner
 - As a user, I want to be able to modify the date of an event on my planner
 - As a user, I want to be able to modify the name of an event on my planner

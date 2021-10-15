@@ -184,6 +184,7 @@ public class PlannerApp {
         displayDateMenu();
         if (input.nextInt() > 0 && input.nextInt() < 8) {
             toEdit.setEventDate(input.nextInt());
+            System.out.println("Event date has been changed to " + toEdit.getEventDate());
         } else {
             System.out.println("Please select a number from 1 to 7.");
         }
