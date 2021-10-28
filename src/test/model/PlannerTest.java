@@ -25,7 +25,6 @@ public class PlannerTest {
         testPlanner.addEvent(event2);
         testPlanner.addEvent(event3);
         assertEquals(3, testPlanner.getPlannerSize());
-
     }
 
 

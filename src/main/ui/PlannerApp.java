@@ -6,6 +6,7 @@ import model.Planner;
 import java.util.Locale;
 import java.util.Scanner;
 
+//The planner application
 
 public class PlannerApp {
     private Planner planner;
@@ -113,24 +114,8 @@ public class PlannerApp {
         newEvent.setEventDescription(eventDescription);
         System.out.println("Description has been set as " + newEvent.getEventDescription());
         planner.addEvent(newEvent);
-        String eventDay = new String();
-        if (newEvent.getEventDate() == 1) {
-            eventDay = "Monday";
-        } else if (newEvent.getEventDate() == 2) {
-            eventDay = "Tuesday";
-        } else if (newEvent.getEventDate() == 3) {
-            eventDay = "Wednesday";
-        } else if (newEvent.getEventDate() == 4) {
-            eventDay = "Thursday";
-        } else if (newEvent.getEventDate() == 5) {
-            eventDay = "Friday";
-        } else if (newEvent.getEventDate() == 6) {
-            eventDay = "Saturday";
-        } else if (newEvent.getEventDate() == 6) {
-            eventDay = "Sunday";
-        }
         System.out.println("Event " + newEvent.getEventName()
-                + " has been scheduled for " + eventDay + "!");
+                + " has been scheduled for " + newEvent.getEventDateString() + "!");
     }
 
     //EFFECTS: Displays a list of all current scheduled events
@@ -138,7 +123,7 @@ public class PlannerApp {
         for (int i = 0; i < planner.getPlannerSize(); i++) {
             Event currentEvent = planner.numEvent(i);
             System.out.println((i + 1) + " -> " + currentEvent.getEventName()
-                    + " is scheduled for " + currentEvent.getEventDate() + "\n");
+                    + " is scheduled for " + currentEvent.getEventDateString() + "\n");
         }
     }
 
@@ -188,11 +173,13 @@ public class PlannerApp {
         int newDate = input.nextInt();
         if (newDate > 0 && newDate < 8) {
             toEdit.setEventDate(newDate);
-            System.out.println("Event date has been changed to " + toEdit.getEventDate());
+            System.out.println("Event date has been changed to " + toEdit.getEventDateString());
         } else {
             System.out.println("Please select a number from 1 to 7.");
         }
     }
+
+
 
 
 

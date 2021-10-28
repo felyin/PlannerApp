@@ -23,3 +23,5 @@ would save me the money of buying a new planner each year, as well as reduce the
 - As a user, I want to be able to modify the date of an event on my planner
 - As a user, I want to be able to modify the name of an event on my planner
 - As a user, I want to be able to see a list of upcoming events on my planner
+- As a user, I want to be able to save my upcoming events to file
+- As a user, I want to be able to be able to load my upcoming events from file 

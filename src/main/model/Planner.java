@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+//Represents a planner, which is a list of events scheduled for the upcoming week (Monday to Sunday)
+
 public class Planner {
     private ArrayList<Event> schedule;
 

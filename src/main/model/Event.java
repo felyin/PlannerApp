@@ -3,6 +3,7 @@ package model;
 import java.awt.*;
 import java.util.Date;
 
+//Represents an Event, with its name, date, and description.
 
 public class Event {
     private String eventName;   //Name of the event
@@ -54,6 +55,28 @@ public class Event {
     //EFFECT: Sets or changes the description of the event to newDesc
     public void setEventDescription(String newDesc) {
         description = newDesc;
+    }
+
+    //REQUIRES: date > 0 and date < 8  //TODO: Add tests for this
+    //EFFECT: Translates the event date from an integer to the date it represents
+    public String getEventDateString() {
+        if (date == 1) {
+            return "Monday";
+        } else if (date == 2) {
+            return "Tuesday";
+        } else if (date == 3) {
+            return "Wednesday";
+        } else if (date == 4) {
+            return "Thursday";
+        } else if (date == 5) {
+            return "Friday";
+        } else if (date == 6) {
+            return "Saturday";
+        } else if (date == 7) {
+            return "Sunday";
+        } else {
+            return "Invalid Selection";
+        }
     }
 
 
