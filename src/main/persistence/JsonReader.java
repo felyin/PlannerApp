@@ -32,7 +32,7 @@ public class JsonReader {
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
-        try (Stream<String> stream = Files.lines( Paths.get(source), StandardCharsets.UTF_8)) {
+        try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
             stream.forEach(s -> contentBuilder.append(s));
         }
 
@@ -63,7 +63,7 @@ public class JsonReader {
         String name = jsonObject.getString("name");
         Integer day = jsonObject.getInt("day");
         String desc = jsonObject.getString("description");
-        Event event = new Event(name,day, desc );
+        Event event = new Event(name, day, desc);
         pl.addEvent(event);
     }
 }
