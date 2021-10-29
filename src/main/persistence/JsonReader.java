@@ -47,8 +47,8 @@ public class JsonReader {
         return pl;
     }
 
-    // MODIFIES: wr
-    // EFFECTS: parses thingies from JSON object and adds them to workroom
+    // MODIFIES: pl
+    // EFFECTS: parses events from JSON object and adds them to planner
     private void addEvents(Planner pl, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("events");
         for (Object json : jsonArray) {
@@ -57,8 +57,8 @@ public class JsonReader {
         }
     }
 
-    // MODIFIES: wr
-    // EFFECTS: parses thingy from JSON object and adds it to workroom
+    // MODIFIES: pl
+    // EFFECTS: parses events from JSON object and adds it to planner
     private void addEvent(Planner pl, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         Integer day = jsonObject.getInt("day");

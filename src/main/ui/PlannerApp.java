@@ -5,6 +5,8 @@ import model.Planner;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -42,18 +44,23 @@ public class PlannerApp {
                 editEvent();
             } else if (command.equals("list")) {
                 displayEventList();
+            } else if (command.equals("save")) {
+                savePlanner();
+            } else if (command.equals("load")) {
+                loadPlanner();
             } else {
                 System.out.println("Invalid Selection.");
             }
         }
-
-        System.out.println("\nSee you next time.");
+        //System.out.println("\nSee you next time.");
     }
 
     // MODIFIES: this
     // EFFECTS: initializes a new event for the user to modify
     private void initializeEvent() {
         planner = new Planner("My Planner");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
@@ -64,6 +71,8 @@ public class PlannerApp {
         System.out.println("\tnew -> make a new event");
         System.out.println("\tedit -> edit the details of an event");
         System.out.println("\tlist -> see a list of upcoming events");
+        System.out.println("\tsave -> save your current planner to file");
+        System.out.println("\tload -> load your planner from file");
         System.out.println("\tquit -> quit");
     }
 
@@ -183,6 +192,32 @@ public class PlannerApp {
             System.out.println("Please select a number from 1 to 7.");
         }
     }
+
+    //Code based on JsonSerializationDemo
+    // EFFECTS: saves the planner to file
+    private void savePlanner() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(planner);
+            jsonWriter.close();
+            System.out.println("Saved " + planner.getPlannerName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    //Code based on JsonSerializationDemo
+    // MODIFIES: this
+    // EFFECTS: loads planner from file
+    private void loadPlanner() {
+        try {
+            planner = jsonReader.read();
+            System.out.println("Loaded " + planner.getPlannerName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
 
 
 

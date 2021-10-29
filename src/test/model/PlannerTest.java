@@ -67,5 +67,10 @@ public class PlannerTest {
         assertEquals(testPlanner.numEvent(2), event3);
     }
 
+    @Test
+    void testGetPlannerName() {
+        assertEquals("TestPlanner", testPlanner.getPlannerName());
+    }
+
 
 }

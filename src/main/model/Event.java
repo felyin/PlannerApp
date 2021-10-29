@@ -60,7 +60,7 @@ public class Event implements Writable {
         description = newDesc;
     }
 
-    //REQUIRES: date > 0 and date < 8  //TODO: Add tests for this
+    //REQUIRES: date > 0 and date < 8
     //EFFECT: Translates the event date from an integer to the date it represents
     public String getEventDateString() {
         if (date == 1) {

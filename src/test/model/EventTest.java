@@ -39,5 +39,22 @@ class EventTest {
         assertEquals("New description", testEvent.getEventDescription());
     }
 
+    @Test
+    void testGetEventDateStringSunday() {
+        assertEquals("Sunday", testEvent.getEventDateString());
+    }
+
+    @Test
+    void testGetEventDateStringSaturday() {
+        testEvent.setEventDate(6);
+        assertEquals("Saturday", testEvent.getEventDateString());
+    }
+
+    @Test
+    void testGetEventDateStringInvalid() {
+        testEvent.setEventDate(9);
+        assertEquals("Invalid Selection", testEvent.getEventDateString());
+    }
+
 }
 
