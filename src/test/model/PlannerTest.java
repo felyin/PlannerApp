@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,12 +11,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlannerTest {
     private Planner testPlanner;
+    private Event event1;
 
     @BeforeEach
     void runBefore() {
         testPlanner = new Planner("TestPlanner");
-        Event event1 = new Event("Event 1", 1, "Test 1");
+        event1 = new Event("Event 1", 1, "Test 1");
         testPlanner.addEvent(event1);
+
 
     }
 
@@ -71,6 +75,33 @@ public class PlannerTest {
     void testGetPlannerName() {
         assertEquals("TestPlanner", testPlanner.getPlannerName());
     }
+
+    @Test
+    void testGetEvents() {
+        Planner eventsPlannerTest = new Planner("many events");
+        Event event1 = new Event("Event 1", 1, "Test 1");
+        Event event2 = new Event("Event 2", 7, "Test 2");
+        Event event3 = new Event("Event 3", 4, "Test 3");
+        eventsPlannerTest.addEvent(event1);
+        eventsPlannerTest.addEvent(event2);
+        eventsPlannerTest.addEvent(event3);
+        ArrayList<Event> eventList = new ArrayList<>();
+        eventList.add(event1);
+        eventList.add(event2);
+        eventList.add(event3);
+        assertEquals(eventsPlannerTest.getEvents(),eventList);
+    }
+
+//    @Test
+//    void testToJson() {
+//        JSONObject testObject = testPlanner.toJson();
+//        assertEquals(testObject.get("name"), testPlanner.getPlannerName());
+//        Event firstEvent = event1;
+//        ArrayList newList = new ArrayList();
+//        newList.add(firstEvent.toJson());
+//        assertEquals(testObject.get("events"), newList);
+//    }
+
 
 
 }

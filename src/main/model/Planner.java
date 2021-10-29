@@ -52,7 +52,7 @@ public class Planner implements Writable {
         return schedule.get(i);
     }
 
-    // EFFECTS: returns an unmodifiable list of events in this planner //TODO: Add tests
+    // EFFECTS: returns an unmodifiable list of events in this planner
     public List<Event> getEvents() {
         return Collections.unmodifiableList(schedule);
     }
