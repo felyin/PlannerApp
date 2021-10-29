@@ -1,0 +1,20 @@
+{
+  "events": [
+    {
+      "name": "CPSC Midterm",
+      "day": 1,
+      "description": "Test 1"
+    },
+    {
+      "name": "BIOL Midterm",
+      "day": 7,
+      "description": "Test 2"
+    },
+    {
+      "name": "PSYC Midterm",
+      "day": 4,
+      "description": "Test 3"
+    }
+  ],
+  "name": "My Planner"
+}

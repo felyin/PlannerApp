@@ -12,7 +12,7 @@ public class PlannerTest {
 
     @BeforeEach
     void runBefore() {
-        testPlanner = new Planner();
+        testPlanner = new Planner("TestPlanner");
         Event event1 = new Event("Event 1", 1, "Test 1");
         testPlanner.addEvent(event1);
 

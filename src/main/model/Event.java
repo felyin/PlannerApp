@@ -1,11 +1,14 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.awt.*;
 import java.util.Date;
 
 //Represents an Event, with its name, date, and description.
 
-public class Event {
+public class Event implements Writable {
     private String eventName;   //Name of the event
     private int date;    //Day of the week to schedule the event, with 1 being Monday and 7 being Sunday
     private String description;   //Description of the event
@@ -77,6 +80,16 @@ public class Event {
         } else {
             return "Invalid Selection";
         }
+    }
+
+    //Code based on JsonSerializationDemo
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", eventName);
+        json.put("day", date);
+        json.put("description", description);
+        return json;
     }
 
 

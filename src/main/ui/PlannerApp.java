@@ -2,6 +2,8 @@ package ui;
 
 import model.Event;
 import model.Planner;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.util.Locale;
 import java.util.Scanner;
@@ -11,6 +13,10 @@ import java.util.Scanner;
 public class PlannerApp {
     private Planner planner;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private static final String JSON_STORE = "./data/Planner.json";
+
 
     public PlannerApp() {
         runPlanner();
@@ -47,8 +53,7 @@ public class PlannerApp {
     // MODIFIES: this
     // EFFECTS: initializes a new event for the user to modify
     private void initializeEvent() {
-        Event newEvent = new Event("No Name Set",0,"No description");
-        planner = new Planner();
+        planner = new Planner("My Planner");
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
@@ -82,7 +87,7 @@ public class PlannerApp {
     //EFFECTS: Sets the date as the user input
     private void setDate(Event newEvent) {
         displayDateMenu();
-        Integer date = input.nextInt();
+        int date = input.nextInt();
 
         if (date > 0 && date < 8) {
             newEvent.setEventDate(date);
