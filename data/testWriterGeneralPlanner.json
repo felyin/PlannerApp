@@ -1,0 +1,20 @@
+{
+    "name": "My Planner",
+    "events": [
+        {
+            "name": "Club Meeting",
+            "description": "Test Writer 1",
+            "day": 2
+        },
+        {
+            "name": "Job Interview",
+            "description": "Test Writer 2",
+            "day": 5
+        },
+        {
+            "name": "Laundry Day",
+            "description": "Test Writer 3",
+            "day": 4
+        }
+    ]
+}

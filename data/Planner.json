@@ -1,0 +1,25 @@
+{
+    "name": "My Planner",
+    "events": [
+        {
+            "name": "new event",
+            "description": "event 1",
+            "day": 7
+        },
+        {
+            "name": "test 2",
+            "description": "new event 2",
+            "day": 4
+        },
+        {
+            "name": "4",
+            "description": "1",
+            "day": 1
+        },
+        {
+            "name": "new4",
+            "description": "new",
+            "day": 6
+        }
+    ]
+}
