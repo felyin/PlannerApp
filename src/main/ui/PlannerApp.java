@@ -10,19 +10,28 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Scanner;
 
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 //The planner application
 
-public class PlannerApp {
+public class PlannerApp extends JPanel {
     private Planner planner;
     private Scanner input;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private static final String JSON_STORE = "./data/Planner.json";
 
-
     public PlannerApp() {
         runPlanner();
     }
+
 
 //runPlanner based off of TellerApp
     private void runPlanner() {
@@ -96,13 +105,17 @@ public class PlannerApp {
     //EFFECTS: Sets the date as the user input
     private void setDate(Event newEvent) {
         displayDateMenu();
-        int date = input.nextInt();
 
-        if (date > 0 && date < 8) {
-            newEvent.setEventDate(date);
-            setEventDescription(newEvent);
-        } else {
-            System.out.println("Please enter a number from 1 to 7.");
+        try {
+            int date = input.nextInt();
+            if (date > 0 && date < 8) {
+                newEvent.setEventDate(date);
+                setEventDescription(newEvent);
+            } else {
+                System.out.println("Please enter a number from 1 to 7.");
+            }
+        } catch (Exception e) {
+            System.out.println("Please input a number.");
         }
 
     }
@@ -184,12 +197,17 @@ public class PlannerApp {
     //EFFECTS: Changes the date of the event to a new date
     private void changeEventDate(Event toEdit) {
         displayDateMenu();
-        int newDate = input.nextInt();
-        if (newDate > 0 && newDate < 8) {
-            toEdit.setEventDate(newDate);
-            System.out.println("Event date has been changed to " + toEdit.getEventDateString());
-        } else {
-            System.out.println("Please select a number from 1 to 7.");
+
+        try {
+            int newDate = input.nextInt();
+            if (newDate > 0 && newDate < 8) {
+                toEdit.setEventDate(newDate);
+                System.out.println("Event date has been changed to " + toEdit.getEventDateString());
+            } else {
+                System.out.println("Please select a number from 1 to 7.");
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid.");
         }
     }
 
