@@ -37,8 +37,6 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     JPanel sunPanel;
 
 
-
-
     public PlannerAppGUI() {
         initializeEvent();
         initializeMenu();
@@ -61,33 +59,20 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         initializeSidebarMenu();
         calendarContainer();
         initializeDates();
+
+        JPanel titleBorder = new JPanel();
+        titleBorder.setPreferredSize(new Dimension(100,100));
+        titleBorder.setBackground(Color.gray);
+        titleBorder.setVisible(true);
+        this.add(titleBorder, BorderLayout.NORTH);
     }
 
-//        JPanel titleBorder = new JPanel();
-//        titleBorder.setPreferredSize(new Dimension(100,100));
-//        titleBorder.setBackground(Color.gray);
-//        this.add(titleBorder, BorderLayout.NORTH);
 
     public void initializeSidebarMenu() {
-        newEventButton = new JButton();
-        newEventButton.setBounds(100, 400, 100, 100);
-        newEventButton.addActionListener(this);
-        newEventButton.setText("New Event");
-
-        editEventButton = new JButton();
-        editEventButton.setBounds(1450, 400, 100, 100);
-        newEventButton.addActionListener(this);
-        editEventButton.setText("Edit Event");
-
-        saveButton = new JButton();
-        saveButton.setBounds(100, 100, 100, 100);
-        saveButton.addActionListener(this);
-        saveButton.setText("Save");
-
-        loadButton = new JButton();
-        loadButton.setBounds(1450, 400, 100, 100);
-        saveButton.addActionListener(this);
-        loadButton.setText("Load");
+        makeNewEventButton();
+        makeEditEventButton();
+        makeSaveButton();
+        makeLoadButton();
 
         JPanel menuBorder = new JPanel();
         menuBorder.setPreferredSize(new Dimension(280, 100));
@@ -104,6 +89,35 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
 //        titleLabel.setSize(100,100);
 //        titleBorder.add(titleLabel);
     }
+
+    private void makeNewEventButton() {
+        newEventButton = new JButton();
+        newEventButton.setBounds(100, 400, 100, 100);
+        newEventButton.addActionListener(this);
+        newEventButton.setText("New Event");
+    }
+
+    private void makeEditEventButton() {
+        editEventButton = new JButton();
+        editEventButton.setBounds(1450, 400, 100, 100);
+        newEventButton.addActionListener(this);
+        editEventButton.setText("Edit Event");
+    }
+
+    private void makeSaveButton() {
+        saveButton = new JButton();
+        saveButton.setBounds(100, 100, 100, 100);
+        saveButton.addActionListener(this);
+        saveButton.setText("Save");
+    }
+
+    private void makeLoadButton() {
+        loadButton = new JButton();
+        loadButton.setBounds(1450, 400, 100, 100);
+        saveButton.addActionListener(this);
+        loadButton.setText("Load");
+    }
+
 //-----------------------------------------------CALENDAR INIT-------------------------------------
 
     public void initializeDates() {
@@ -308,11 +322,6 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         }
 
     }
-
-
-
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
