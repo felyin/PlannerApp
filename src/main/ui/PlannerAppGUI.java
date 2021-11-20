@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import model.Event;
 import model.Planner;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -18,7 +19,6 @@ import java.util.Scanner;
 
 public class PlannerAppGUI extends JFrame implements ActionListener {
     private Planner planner;
-    private Scanner input;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private static final String JSON_STORE = "./data/Planner.json";
@@ -28,6 +28,15 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     JButton saveButton;
     JButton loadButton;
     JPanel calendarContainer;
+    JPanel monPanel;
+    JPanel tuesPanel;
+    JPanel wedPanel;
+    JPanel thursPanel;
+    JPanel friPanel;
+    JPanel satPanel;
+    JPanel sunPanel;
+
+
 
 
     public PlannerAppGUI() {
@@ -45,18 +54,13 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         this.setTitle("Your weekly planner!");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-        this.setSize(1700, 1000);
+        this.setSize(1700, 750);
+        this.setResizable(false);
         this.getContentPane().setBackground(new Color(200, 230, 230));
         this.setLayout(new BorderLayout());
         initializeSidebarMenu();
         calendarContainer();
-        initializeMon();
-        initializeTues();
-        initializeWed();
-        initializeThurs();
-        initializeFri();
-        initializeSat();
-        initializeSun();
+        initializeDates();
     }
 
 //        JPanel titleBorder = new JPanel();
@@ -67,10 +71,12 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     public void initializeSidebarMenu() {
         newEventButton = new JButton();
         newEventButton.setBounds(100, 400, 100, 100);
+        newEventButton.addActionListener(this);
         newEventButton.setText("New Event");
 
         editEventButton = new JButton();
         editEventButton.setBounds(1450, 400, 100, 100);
+        newEventButton.addActionListener(this);
         editEventButton.setText("Edit Event");
 
         saveButton = new JButton();
@@ -84,9 +90,9 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         loadButton.setText("Load");
 
         JPanel menuBorder = new JPanel();
-        menuBorder.setPreferredSize(new Dimension(280,100));
+        menuBorder.setPreferredSize(new Dimension(280, 100));
         menuBorder.setBackground(Color.LIGHT_GRAY);
-        menuBorder.setLayout(new GridLayout(4,1));
+        menuBorder.setLayout(new GridLayout(4, 1));
         this.add(menuBorder, BorderLayout.EAST);
         menuBorder.add(newEventButton);
         menuBorder.add(editEventButton);
@@ -98,6 +104,17 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
 //        titleLabel.setSize(100,100);
 //        titleBorder.add(titleLabel);
     }
+//-----------------------------------------------CALENDAR INIT-------------------------------------
+
+    public void initializeDates() {
+        initializeMon();
+        initializeTues();
+        initializeWed();
+        initializeThurs();
+        initializeFri();
+        initializeSat();
+        initializeSun();
+    }
 
     public void calendarContainer() {
         calendarContainer = new JPanel();
@@ -106,9 +123,9 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     }
 
     public void initializeMon() {
-        JPanel monPanel = new JPanel();
+        monPanel = new JPanel();
         monPanel.setVisible(true);
-        monPanel.setBounds(0,0,200,1000);
+        monPanel.setBounds(0, 0, 200, 1000);
         monPanel.setLayout(new BorderLayout());
         monPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         calendarContainer.add(monPanel, BorderLayout.CENTER);
@@ -119,9 +136,9 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     }
 
     public void initializeTues() {
-        JPanel tuesPanel = new JPanel();
+        tuesPanel = new JPanel();
         tuesPanel.setVisible(true);
-        tuesPanel.setBounds(200,0,200,1000);
+        tuesPanel.setBounds(200, 0, 200, 1000);
         tuesPanel.setLayout(new BorderLayout());
         tuesPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         calendarContainer.add(tuesPanel, BorderLayout.CENTER);
@@ -132,9 +149,9 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     }
 
     public void initializeWed() {
-        JPanel wedPanel = new JPanel();
+        wedPanel = new JPanel();
         wedPanel.setVisible(true);
-        wedPanel.setBounds(400,0,200,1000);
+        wedPanel.setBounds(400, 0, 200, 1000);
         wedPanel.setLayout(new BorderLayout());
         wedPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         calendarContainer.add(wedPanel, BorderLayout.CENTER);
@@ -145,9 +162,9 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     }
 
     public void initializeThurs() {
-        JPanel thursPanel = new JPanel();
+        thursPanel = new JPanel();
         thursPanel.setVisible(true);
-        thursPanel.setBounds(600,0,200,1000);
+        thursPanel.setBounds(600, 0, 200, 1000);
         thursPanel.setLayout(new BorderLayout());
         thursPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         calendarContainer.add(thursPanel, BorderLayout.CENTER);
@@ -158,9 +175,9 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     }
 
     public void initializeFri() {
-        JPanel friPanel = new JPanel();
+        friPanel = new JPanel();
         friPanel.setVisible(true);
-        friPanel.setBounds(800,0,200,1000);
+        friPanel.setBounds(800, 0, 200, 1000);
         friPanel.setLayout(new BorderLayout());
         friPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         calendarContainer.add(friPanel, BorderLayout.CENTER);
@@ -171,9 +188,9 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     }
 
     public void initializeSat() {
-        JPanel satPanel = new JPanel();
+        satPanel = new JPanel();
         satPanel.setVisible(true);
-        satPanel.setBounds(1000,0,200,1000);
+        satPanel.setBounds(1000, 0, 200, 1000);
         satPanel.setLayout(new BorderLayout());
         satPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         calendarContainer.add(satPanel, BorderLayout.CENTER);
@@ -184,9 +201,9 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     }
 
     public void initializeSun() {
-        JPanel sunPanel = new JPanel();
+        sunPanel = new JPanel();
         sunPanel.setVisible(true);
-        sunPanel.setBounds(1200,0,200,1000);
+        sunPanel.setBounds(1200, 0, 200, 1000);
         sunPanel.setLayout(new BorderLayout());
         sunPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         calendarContainer.add(sunPanel, BorderLayout.CENTER);
@@ -195,6 +212,10 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         date.setText("Sunday");
         sunPanel.add(date, BorderLayout.NORTH);
     }
+
+
+    //--------------------------------------END DATE INIT------------------------------------
+
 
     //Code based on JsonSerializationDemo
     // EFFECTS: saves the planner to file
@@ -221,6 +242,76 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         }
     }
 
+    private void eventWindow() {
+        String eventName = JOptionPane.showInputDialog("What would you like to name your event?");
+        System.out.println(eventName);
+
+        Object[] weekdays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        String eventDate = (String) JOptionPane.showInputDialog(
+                null,
+                "Please select a date for your event.",
+                "Date Selection",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                weekdays,
+                "Monday");
+        System.out.println(eventDate);
+        addEvent(eventName,eventDate);
+    }
+
+    private void addEvent(String name, String date) {
+        Integer dateInt = 0;
+        if (date == "Monday") {
+            dateInt = 1;
+        } else if (date == "Tuesday") {
+            dateInt = 2;
+        } else if (date == "Wednesday") {
+            dateInt = 3;
+        } else if (date == "Thursday") {
+            dateInt = 4;
+        } else if (date == "Friday") {
+            dateInt = 5;
+        } else if (date == "Saturday") {
+            dateInt = 6;
+        } else if (date == "Sunday") {
+            dateInt = 7;
+        }
+
+        Event newEvent = new Event(name,dateInt,"No description");
+        planner.addEvent(newEvent);
+        System.out.println("New event created! Event:" + newEvent.getEventName() + " at " + newEvent.getEventDate());
+        displayEvent(newEvent);
+    }
+
+    private void displayEvent(Event event) {
+        JPanel eventPanel = new JPanel();
+        JLabel eventLabel = new JLabel();
+        eventLabel.setText(event.getEventName());
+        eventPanel.add(eventLabel);
+        eventPanel.setVisible(true);
+        eventPanel.setSize(180,100);
+
+        if (event.getEventDateString() == "Monday") {
+            monPanel.add(eventPanel);
+        } else if (event.getEventDateString() == "Tuesday") {
+            tuesPanel.add(eventPanel);
+        } else if (event.getEventDateString() == "Wednesday") {
+            wedPanel.add(eventPanel);
+        } else if (event.getEventDateString() == "Thursday") {
+            thursPanel.add(eventPanel);
+        } else if (event.getEventDateString() == "Friday") {
+            friPanel.add(eventPanel);
+        } else if (event.getEventDateString() == "Saturday") {
+            satPanel.add(eventPanel);
+        } else if (event.getEventDateString() == "Sunday") {
+            sunPanel.add(eventPanel);
+        }
+
+    }
+
+
+
+
 
 
     @Override
@@ -229,10 +320,9 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
             savePlanner();
         } else if (e.getSource() == loadButton) {
             loadPlanner();
-        } // else if (e.getSource() == newEventButton) {
-            //EventMaker newEvent = new EventMaker();
-            //newEvent.initiate();
-        //}
+        }  else if (e.getSource() == newEventButton) {
+            eventWindow();
+        }
 
     }
 
