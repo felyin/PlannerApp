@@ -232,7 +232,8 @@ public class PlannerApp extends JPanel {
 
 
 
-
+// Points to fix: Edit and Load.
+    //What should happen in edit: It should make drop-down list off all events in planner, you choose one to edit
 
 
 

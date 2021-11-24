@@ -11,24 +11,24 @@ import java.util.List;
 //Represents a planner, which is a list of events scheduled for the upcoming week (Monday to Sunday)
 
 public class Planner implements Writable {
-    private ArrayList<Event> schedule;
+    private ArrayList<Event> eventsList;
     private String plannerName;
 
     //Constructs a planner with an empty schedule and name
     public Planner(String name) {
-        schedule = new ArrayList<>();
+        eventsList = new ArrayList<>();
         plannerName = name;
     }
 
     //MODIFIES: this
-    //EFFECTS: adds an Event to the schedule.
+    //EFFECTS: adds an Event to the EventsList.
     public void addEvent(Event event) {
-        schedule.add(event);
+        eventsList.add(event);
     }
 
     //EFFECTS: returns how many items are currently in the planner
     public int getPlannerSize() {
-        return schedule.size();
+        return eventsList.size();
     }
 
     //EFFECTS: returns the name of the planner  //TODO: ADD TEST FOR THIS AND ADD USER STORY
@@ -37,24 +37,24 @@ public class Planner implements Writable {
     }
 
     //MODIFIES: this
-    //EFFECTS: removes an Event from the schedule
+    //EFFECTS: removes an Event from the events list
     public void removeEvent(String name) {
-        for (int i = 0; i < schedule.size(); i++) {
-            Event e = schedule.get(i);
+        for (int i = 0; i < eventsList.size(); i++) {
+            Event e = eventsList.get(i);
             if (e.getEventName() == name) {
-                schedule.remove(e);
+                eventsList.remove(e);
             }
         }
     }
 
-    //EFFECTS: Returns the requested Event from the schedule
+    //EFFECTS: Returns the requested Event from the list
     public Event numEvent(int i) {
-        return schedule.get(i);
+        return eventsList.get(i);
     }
 
     // EFFECTS: returns an unmodifiable list of events in this planner
     public List<Event> getEvents() {
-        return Collections.unmodifiableList(schedule);
+        return Collections.unmodifiableList(eventsList);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class Planner implements Writable {
     private JSONArray eventsToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (Event e : schedule) {
+        for (Event e : eventsList) {
             jsonArray.put(e.toJson());
         }
 

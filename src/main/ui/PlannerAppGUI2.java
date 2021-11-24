@@ -10,13 +10,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import model.Event;
 import model.Planner;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
-public class PlannerAppGUI extends JFrame implements ActionListener {
+public class PlannerAppGUI2 extends JFrame implements ActionListener {
     private Planner planner;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -38,11 +45,9 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     private JPanel sunPanel;
 
 
-    public PlannerAppGUI() {
+    public PlannerAppGUI2() {
         initializeEvent();
         initializeMenu();
-
-
     }
 
     //EFFECT: Creates the planner object, jsonWriter, jsonReader
@@ -65,23 +70,11 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         this.setLayout(new BorderLayout());
         initializeSidebarMenu();
         calendarContainer();
-        initializeDates();
+//        initializeDates();
 
-//        JPanel titleBorder = new JPanel();
-//        titleBorder.setPreferredSize(new Dimension(100,100));
-//        titleBorder.setBackground(Color.gray);
-//        titleBorder.setVisible(true);
-//
-//        JLabel titleLabel = new JLabel();
-//        titleLabel.setText("Weekly Planner App");
-//        titleLabel.setSize(100,100);
-//        titleLabel.setVisible(true);
-//        titleBorder.add(titleLabel);
-//
-//        this.add(titleBorder, BorderLayout.NORTH);
     }
 
- //EFFECTS: Creates the sidebar menu with the save/load/edit/new event buttons
+    //EFFECTS: Creates the sidebar menu with the save/load/edit/new event buttons
     public void initializeSidebarMenu() {
         makeNewEventButton();
         makeEditEventButton();
@@ -106,8 +99,6 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         newEventButton.setBounds(100, 400, 100, 100);
         newEventButton.addActionListener(this);
         newEventButton.setText("New Event");
-        ImageIcon icon = new ImageIcon("clockicon.png");
-        newEventButton.setIcon(icon);
     }
 
     //EFFECT: Creates button to edit an event
@@ -150,8 +141,22 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     //Creates the container that the dates are placed in
     public void calendarContainer() {
         calendarContainer = new JPanel();
-        calendarContainer.setLayout(null);
         this.add(calendarContainer, BorderLayout.CENTER);
+        calendarContainer.setLayout(new BorderLayout());
+
+        listModel = new DefaultListModel();
+        listModel.addElement("Test Event - " + "Monday");
+
+        //Create the list and put it in a scroll pane.
+        list = new JList(listModel);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setSelectedIndex(0);
+//        list.addListSelectionListener(listener);
+        list.setVisibleRowCount(5);
+        JScrollPane listScrollPane = new JScrollPane(list);
+
+        calendarContainer.add(listScrollPane);
+
     }
 
     //Effect: Initializes the Monday column as a JPanel with BorderLayout
@@ -292,7 +297,6 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
             Event currentEvent = planner.numEvent(i);
             JLabel eventLabel = makeDateLabel(currentEvent);
 
-
             if (currentEvent.getEventDateString() == "Monday") {
                 monPanel.add(eventLabel, BorderLayout.CENTER);
             } else if (currentEvent.getEventDateString() == "Tuesday") {
@@ -340,7 +344,9 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
                 null,
                 weekdays,
                 "Monday");
+
         System.out.println(eventDate);
+
         Integer dateInt = dayToInt(eventDate);
 
         Event newEvent = new Event(eventName, dateInt,"desc");
@@ -350,10 +356,12 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     //NOT IMPLEMENTED YET!!! Should have option to rename, change date, and delete selected event
     private void editEventWindow() {
         //Select Event, then can change the date, name, or remove
-        Object[] events = {planner.getEvents().toArray()};
-        Event selectedEvent = (Event) JOptionPane.showInputDialog(
+
+
+        Object[] events = {planner.getEvents()};
+        String selectedEvent = (String) JOptionPane.showInputDialog(
                 null,
-                "Which Event would you like to edit?",
+                "How would you like to edit your event?",
                 "Edit Selection",
                 JOptionPane.PLAIN_MESSAGE,
                 null,
@@ -371,44 +379,13 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
                 "Rename Event");
 
         if (selection == "Rename Event") {
-            renameEvent(selectedEvent);
+            System.out.println("rename");
+            //enter name, then change selected event name to new name
         } else if (selection == "Change Event Date") {
-            changeDate(selectedEvent);
+            System.out.println("Change");
         } else if (selection == "Remove Event") {
-            removeEvent(selectedEvent);
+            planner.removeEvent(selectedEvent);
         }
-    }
-
-    //MODIFIES: Event
-    //EFFECTS: Changes name of event to the input
-    private void renameEvent(Event event) {
-        String eventName = JOptionPane.showInputDialog("What would you like to name your event?");
-        System.out.println(eventName);
-        event.setEventName(eventName);
-    }
-
-    //MODIFIES: Event
-    //EFFECTS: Changes date of event to the new selection
-    private void changeDate(Event event) {
-        Object[] weekdays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-        String eventDate = (String) JOptionPane.showInputDialog(
-                null,
-                "Please select a date for your event.",
-                "Date Selection",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                weekdays,
-                "Monday");
-        event.setEventDate(dayToInt(eventDate));
-    }
-
-
-    //MODIFIES: This
-    //EFFECTS: Removes Event from planner list
-    private void removeEvent(Event event) {
-        planner.removeEvent(event.getEventName());
-        repaintRevalidatePanels();
-        displayEvents();
     }
 
     //EFFECT: Adds event to planner and displays it
@@ -419,8 +396,6 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         System.out.println("New event created! Event:" + event.getEventName() + " at " + event.getEventDateString());
         displayEvents();
     }
-
-
 
     //EFFECT: Returns the corresponding int each day corresponds to
     private int dayToInt(String eventDate) {
@@ -443,23 +418,6 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         return dateInt;
     }
 
-    private void repaintRevalidatePanels() {
-        monPanel.revalidate();
-        monPanel.repaint();
-        tuesPanel.revalidate();
-        tuesPanel.repaint();
-        wedPanel.revalidate();
-        wedPanel.repaint();
-        thursPanel.revalidate();
-        thursPanel.repaint();
-        friPanel.revalidate();
-        friPanel.repaint();
-        satPanel.revalidate();
-        satPanel.repaint();
-        sunPanel.revalidate();
-        sunPanel.repaint();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == saveButton) {
@@ -468,10 +426,11 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
             loadPlanner();
         }  else if (e.getSource() == newEventButton) {
             newEventWindow();
+            monPanel.revalidate();
+            monPanel.repaint();
         } else if (e.getSource() == editEventButton) {
             editEventWindow();
         }
-        repaintRevalidatePanels();
 
     }
 
