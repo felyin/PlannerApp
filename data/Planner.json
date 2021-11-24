@@ -2,14 +2,14 @@
     "name": "My Planner",
     "events": [
         {
-            "name": "addsf",
-            "description": "desc",
+            "name": "test5",
+            "description": "Default Description",
             "day": 1
         },
         {
-            "name": "ttt",
-            "description": "desc",
-            "day": 2
+            "name": "324234422",
+            "description": "Default Description",
+            "day": 7
         }
     ]
 }

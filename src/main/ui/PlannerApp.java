@@ -234,9 +234,6 @@ public class PlannerApp extends JPanel {
 
 // Points to fix: Edit and Load.
     //What should happen in edit: It should make drop-down list off all events in planner, you choose one to edit
-    //Icons don't work? I made one in new event button and also for the frame.
-    //What's up with checkstyle
-
 
 
 }
