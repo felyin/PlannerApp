@@ -375,6 +375,7 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         return null;
     }
 
+    //EFFECT: Create JOptionPane and allows you to choose an event to edit 
     private void editEventWindow() {
         //Select Event, then can change the date, name, or remove
 
@@ -392,6 +393,11 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
                 null,
                 events,
                 planner.getEvents().indexOf(0));
+        editEventWindowSelection(selectedEvent);
+    }
+
+    //EFFECTS: Creates JOptionPane to select how you would like to edit your event
+    private void editEventWindowSelection(String selectedEvent) {
 
         Object[] options = {"Rename Event", "Change Event Date", "Remove Event"};
         String selection = (String) JOptionPane.showInputDialog(
@@ -403,6 +409,7 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
                 options,
                 "Rename Event");
         selectionHandler(eventStringToEvent(selectedEvent), selection);
+
     }
 
 
