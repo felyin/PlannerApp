@@ -369,7 +369,12 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
                 null,
                 options,
                 "Rename Event");
+        selectionHandler(selectedEvent, selection);
+    }
 
+
+    //EFFECTS: Calls either rename event, change event date, or remove event depending on selection
+    private void selectionHandler(Event selectedEvent, String selection) {
         if (selection == "Rename Event") {
             renameEvent(selectedEvent);
         } else if (selection == "Change Event Date") {
