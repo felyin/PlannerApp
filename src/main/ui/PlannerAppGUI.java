@@ -12,6 +12,9 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
+
+import model.Event;
+import model.EventLog;
 import model.Events;
 import model.Planner;
 import persistence.JsonReader;
@@ -22,8 +25,7 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private static final String JSON_STORE = "./data/Planner.json";
-    private JList list;
-    private DefaultListModel listModel;
+
 
     private JButton newEventButton;
     private JButton editEventButton;
@@ -60,7 +62,14 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         ImageIcon image = new ImageIcon("data/clockicon.png");
         this.setIconImage(image.getImage());
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                printLog(EventLog.getInstance());
+                System.exit(0);
+            }
+        });
         this.setVisible(true);
         this.setSize(1700, 750);
         this.setResizable(false);
@@ -71,26 +80,22 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         calendarContainer();
         initializeDates();
 
-//        JPanel titleBorder = new JPanel();
-//        titleBorder.setPreferredSize(new Dimension(100,100));
-//        titleBorder.setBackground(Color.gray);
-//        titleBorder.setVisible(true);
-//
-//        JLabel titleLabel = new JLabel();
-//        titleLabel.setText("Weekly Planner App");
-//        titleLabel.setSize(100,100);
-//        titleLabel.setVisible(true);
-//        titleBorder.add(titleLabel);
-//
-//        this.add(titleBorder, BorderLayout.NORTH);
     }
 
- //EFFECTS: Creates the sidebar menu with the save/load/edit/new event buttons
+    public void printLog(EventLog el) {
+        for (Event next : el) {
+            System.out.println(next);
+        }
+    }
+
+
+    //EFFECTS: Creates the sidebar menu with the save/load/edit/new event buttons
     public void initializeSidebarMenu() {
         makeNewEventButton();
         makeEditEventButton();
         makeSaveButton();
         makeLoadButton();
+
 
         JPanel menuBorder = new JPanel();
         menuBorder.setPreferredSize(new Dimension(280, 100));
@@ -101,7 +106,6 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         menuBorder.add(editEventButton);
         menuBorder.add(saveButton);
         menuBorder.add(loadButton);
-
 
     }
 
@@ -295,7 +299,7 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         for (int i = 0; i < planner.getPlannerSize(); i++) {
             Events currentEvents = planner.numEvent(i);
             JLabel eventLabel = makeDateLabel(currentEvents);
-            eventLabel.setFont(new Font("Verdana", Font.PLAIN,18));
+            eventLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
             eventLabel.setForeground(Color.BLUE);
             eventLabel.setVisible(true);
 
@@ -355,7 +359,7 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
         System.out.println(eventDate);
         Integer dateInt = dayToInt(eventDate);
 
-        Events newEvents = new Events(eventName, dateInt,"Default Description");
+        Events newEvents = new Events(eventName, dateInt, "Default Description");
         addEvent(newEvents);
     }
 
@@ -421,7 +425,6 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     //EFFECTS: Changes name of event to the input
     private void renameEvent(Events events) {
         String eventName = JOptionPane.showInputDialog("What would you like to name your event?");
-        System.out.println(eventName);
         events.setEventName(eventName);
         updateDisplay();
     }
@@ -454,10 +457,8 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     //EFFECT: Adds event to planner and displays it
     private void addEvent(Events events) {
         planner.addEvent(events);
-        System.out.println("New event created! Event:" + events.getEventName() + " at " + events.getEventDateString());
         updateDisplay();
     }
-
 
 
     //EFFECT: Returns the corresponding int each day corresponds to
@@ -501,20 +502,31 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == saveButton) {
-            System.out.println("save button clicked");
             savePlanner();
         } else if (e.getSource() == loadButton) {
-            System.out.println("Load button clicked");
             loadPlanner();
-        }  else if (e.getSource() == newEventButton) {
-            System.out.println("new event clicked");
+        } else if (e.getSource() == newEventButton) {
             newEventWindow();
         } else if (e.getSource() == editEventButton) {
-            System.out.println("edit button clicked");
             editEventWindow();
         }
         repaintRevalidatePanels();
 
     }
 
+    /**
+     * Represents the action to be taken when the user wants to
+     * print the event log.
+     */
+    private class PrintLogAction extends AbstractAction {
+        PrintLogAction() {
+            super("Print log to...");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            System.out.println(EventLog.getInstance());
+        }
+
+    }
 }

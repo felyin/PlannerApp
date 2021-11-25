@@ -23,6 +23,8 @@ public class Planner implements Writable {
     //MODIFIES: this
     //EFFECTS: adds an Event to the EventsList.
     public void addEvent(Events events) {
+        EventLog.getInstance().logEvent(new Event(
+                "New event created! Event:" + events.getEventName() + " at " + events.getEventDateString()));
         eventsList.add(events);
     }
 
@@ -39,10 +41,13 @@ public class Planner implements Writable {
     //MODIFIES: this
     //EFFECTS: removes an Event from the events list
     public void removeEvent(String name) {
+
         for (int i = 0; i < eventsList.size(); i++) {
             Events e = eventsList.get(i);
             if (e.getEventName() == name) {
                 eventsList.remove(e);
+                EventLog.getInstance().logEvent(new Event("Event " + e.getEventName() + " has been removed"));
+
             }
         }
     }

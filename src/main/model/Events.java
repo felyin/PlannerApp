@@ -43,7 +43,10 @@ public class Events implements Writable {
     //MODIFIES: this
     //EFFECT: Sets or changes the name of the event to newName.
     public void setEventName(String newName) {
+        EventLog.getInstance().logEvent(new Event(
+                "Event " + getEventName() + " has been renamed to " + eventName));
         eventName = newName;
+
     }
 
 
@@ -51,6 +54,8 @@ public class Events implements Writable {
     //EFFECT: Sets or changes the date of the event to newDate
     public void setEventDate(int newDate) {
         date = newDate;
+        EventLog.getInstance().logEvent(new Event(
+                "Event " + eventName + " has been moved to " + getEventDateString()));
     }
 
 

@@ -1,5 +1,7 @@
 package persistence;
 
+import model.Event;
+import model.EventLog;
 import model.Events;
 import model.Planner;
 
@@ -36,6 +38,7 @@ public class JsonReader {
             stream.forEach(s -> contentBuilder.append(s));
         }
 
+        EventLog.getInstance().logEvent(new Event("Planner is loaded from file"));
         return contentBuilder.toString();
     }
 
