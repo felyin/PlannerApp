@@ -1,6 +1,6 @@
 package persistence;
 
-import model.Event;
+import model.Events;
 import model.Planner;
 import org.junit.jupiter.api.Test;
 
@@ -40,12 +40,12 @@ class JsonReaderTest extends JsonTest {
         JsonReader reader = new JsonReader("./data/testGeneralPlanner.json");
         try {
             Planner pl = reader.read();
-            List<Event> event = pl.getEvents();
+            List<Events> events = pl.getEvents();
             assertEquals("My Planner", pl.getPlannerName());
             assertEquals(3, pl.getPlannerSize());
-            checkEvent("CPSC Midterm", 1, "Test 1", event.get(0));
-            checkEvent("BIOL Midterm", 7, "Test 2", event.get(1));
-            checkEvent("PSYC Midterm", 4, "Test 3", event.get(2));
+            checkEvent("CPSC Midterm", 1, "Test 1", events.get(0));
+            checkEvent("BIOL Midterm", 7, "Test 2", events.get(1));
+            checkEvent("PSYC Midterm", 4, "Test 3", events.get(2));
 
         } catch (IOException e) {
             fail("Couldn't read from file");

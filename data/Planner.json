@@ -2,14 +2,19 @@
     "name": "My Planner",
     "events": [
         {
-            "name": "test5",
+            "name": "kjhgfdfghjk",
             "description": "Default Description",
-            "day": 1
+            "day": 3
         },
         {
-            "name": "324234422",
+            "name": "jkjhhkkhjkhjk",
             "description": "Default Description",
-            "day": 7
+            "day": 6
+        },
+        {
+            "name": "lllllllllllll",
+            "description": "Default Description",
+            "day": 4
         }
     ]
 }

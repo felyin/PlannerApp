@@ -1,13 +1,12 @@
 package ui;
 
-import model.Event;
+import model.Events;
 import model.Planner;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Scanner;
 
 import javax.swing.*;
@@ -83,12 +82,12 @@ public class PlannerApp extends JPanel {
     //MODIFIES: Event
     //EFFECTS: Makes a new event, sets the name for the event as the user input and then proceeds to setDate
     private void makeEvent() {
-        Event newEvent = new Event("No Name Set",0,"No description");
+        Events newEvents = new Events("No Name Set",0,"No description");
         String selectedName = input.next();
         if (selectedName.length() > 0) {
-            newEvent.setEventName(selectedName);
+            newEvents.setEventName(selectedName);
             System.out.println("Event name has been set as " + selectedName);
-            setDate(newEvent);
+            setDate(newEvents);
 
         } else {
             System.out.println("Please enter a name for your event. \n");
@@ -97,14 +96,14 @@ public class PlannerApp extends JPanel {
 
     //MODIFIES: Event
     //EFFECTS: Sets the date as the user input
-    private void setDate(Event newEvent) {
+    private void setDate(Events newEvents) {
         displayDateMenu();
 
         try {
             int date = input.nextInt();
             if (date > 0 && date < 8) {
-                newEvent.setEventDate(date);
-                setEventDescription(newEvent);
+                newEvents.setEventDate(date);
+                setEventDescription(newEvents);
             } else {
                 System.out.println("Please enter a number from 1 to 7.");
             }
@@ -129,22 +128,22 @@ public class PlannerApp extends JPanel {
 
     //MODIFIES: Event
     //EFFECTS: Sets the description for the event
-    private void setEventDescription(Event newEvent) {
+    private void setEventDescription(Events newEvents) {
         System.out.println("Please enter a description for your event:");
         String eventDescription = input.next();
-        newEvent.setEventDescription(eventDescription);
-        System.out.println("Description has been set as " + newEvent.getEventDescription());
-        planner.addEvent(newEvent);
-        System.out.println("Event " + newEvent.getEventName()
-                + " has been scheduled for " + newEvent.getEventDateString() + "!");
+        newEvents.setEventDescription(eventDescription);
+        System.out.println("Description has been set as " + newEvents.getEventDescription());
+        planner.addEvent(newEvents);
+        System.out.println("Event " + newEvents.getEventName()
+                + " has been scheduled for " + newEvents.getEventDateString() + "!");
     }
 
     //EFFECTS: Displays a list of all current scheduled events
     private void displayEventList() {
         for (int i = 0; i < planner.getPlannerSize(); i++) {
-            Event currentEvent = planner.numEvent(i);
-            System.out.println((i + 1) + " -> " + currentEvent.getEventName()
-                    + " is scheduled for " + currentEvent.getEventDateString() + "\n");
+            Events currentEvents = planner.numEvent(i);
+            System.out.println((i + 1) + " -> " + currentEvents.getEventName()
+                    + " is scheduled for " + currentEvents.getEventDateString() + "\n");
         }
     }
 
@@ -152,14 +151,14 @@ public class PlannerApp extends JPanel {
     private void editEvent() {
         System.out.println("Which event would you like to edit? Type in its number on the list.");
         displayEventList();
-        Event toEdit = planner.numEvent((input.nextInt()) - 1);
+        Events toEdit = planner.numEvent((input.nextInt()) - 1);
 
         selectEditOption(toEdit);
     }
 
     //MODIFIES: this
     //EFFECTS: Lets user choose how to edit their selected event
-    private void selectEditOption(Event toEdit) {
+    private void selectEditOption(Events toEdit) {
         System.out.println("How would you like to edit this event?");
         System.out.println("\tr -> Rename");
         System.out.println("\te -> Edit date");
@@ -181,7 +180,7 @@ public class PlannerApp extends JPanel {
 
     //MODIFIES: thisEvent
     //EFFECTS: Renames the event to the chosen name
-    private void renameEvent(Event toEdit) {
+    private void renameEvent(Events toEdit) {
         System.out.println("What would you like to rename it to?");
         toEdit.setEventName(input.next());
         System.out.println("Event has been renamed to " + toEdit.getEventName());
@@ -189,7 +188,7 @@ public class PlannerApp extends JPanel {
 
     //MODIFIES: thisEvent
     //EFFECTS: Changes the date of the event to a new date
-    private void changeEventDate(Event toEdit) {
+    private void changeEventDate(Events toEdit) {
         displayDateMenu();
 
         try {

@@ -1,96 +1,70 @@
 package model;
 
-import org.json.JSONObject;
-import persistence.Writable;
-
-import java.awt.*;
+import java.util.Calendar;
 import java.util.Date;
 
-//Represents an Event, with its name, date, and description.
 
-public class Event implements Writable {
-    private String eventName;   //Name of the event
-    private int date;    //Day of the week to schedule the event, with 1 being Monday and 7 being Sunday
-    private String description;   //Description of the event
+/**
+ * Represents an alarm system event.
+ */
+public class Event {
+    private static final int HASH_CONSTANT = 13;
+    private Date dateLogged;
+    private String description;
 
-
-    //REQUIRES: String length cannot be 0
-    //MODIFIES: this
-    //EFFECTS: Initializes a new event with a name, date, and description. If no input is given for name,
-    //         returns "Unnamed Event". If no date is given, the default date is set as Monday.
-    //         If no description is given, description is set as "No description".
-    public Event(String name, int day, String desc) {
-        eventName = name;
-        date = day;
-        description = desc;
+    /**
+     * Creates an event with the given description
+     * and the current date/time stamp.
+     *
+     * @param description a description of the event
+     */
+    public Event(String description) {
+        dateLogged = Calendar.getInstance().getTime();
+        this.description = description;
     }
 
-    //GETTERS
-    public String getEventName() {
-        return eventName;
+    /**
+     * Gets the date of this event (includes time).
+     *
+     * @return the date of the event
+     */
+    public Date getDate() {
+        return dateLogged;
     }
 
-    public int getEventDate() {
-        return date;
-    }
-
-    public String getEventDescription() {
+    /**
+     * Gets the description of this event.
+     *
+     * @return the description of the event
+     */
+    public String getDescription() {
         return description;
     }
 
-
-    //REQUIRES: String length cannot be 0
-    //MODIFIES: this
-    //EFFECT: Sets or changes the name of the event to newName.
-    public void setEventName(String newName) {
-        eventName = newName;
-    }
-
-
-    //MODIFIES: this
-    //EFFECT: Sets or changes the date of the event to newDate
-    public void setEventDate(int newDate) {
-        date = newDate;
-    }
-
-
-    //MODIFIES: this
-    //EFFECT: Sets or changes the description of the event to newDesc
-    public void setEventDescription(String newDesc) {
-        description = newDesc;
-    }
-
-    //REQUIRES: date > 0 and date < 8
-    //EFFECT: Translates the event date from an integer to the date it represents
-    public String getEventDateString() {
-        if (date == 1) {
-            return "Monday";
-        } else if (date == 2) {
-            return "Tuesday";
-        } else if (date == 3) {
-            return "Wednesday";
-        } else if (date == 4) {
-            return "Thursday";
-        } else if (date == 5) {
-            return "Friday";
-        } else if (date == 6) {
-            return "Saturday";
-        } else if (date == 7) {
-            return "Sunday";
-        } else {
-            return "Invalid Selection";
-        }
-    }
-
-    //Code based on JsonSerializationDemo
     @Override
-    public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("name", eventName);
-        json.put("day", date);
-        json.put("description", description);
-        return json;
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+
+        if (other.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Event otherEvent = (Event) other;
+
+        return (this.dateLogged.equals(otherEvent.dateLogged)
+                &&
+                this.description.equals(otherEvent.description));
     }
 
+    @Override
+    public int hashCode() {
+        return (HASH_CONSTANT * dateLogged.hashCode() + description.hashCode());
+    }
 
+    @Override
+    public String toString() {
+        return dateLogged.toString() + "\n" + description;
+    }
 }

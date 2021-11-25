@@ -1,6 +1,6 @@
 package persistence;
 
-import model.Event;
+import model.Events;
 import model.Planner;
 import org.junit.jupiter.api.Test;
 
@@ -48,9 +48,9 @@ public class JsonWriterTest extends JsonTest {
     void testWriterGeneralPlanner() {
         try {
             Planner pl = new Planner("My Planner");
-            pl.addEvent(new Event("Club Meeting", 2, "Test Writer 1" ));
-            pl.addEvent(new Event("Job Interview", 5, "Test Writer 2"));
-            pl.addEvent(new Event("Laundry Day", 4, "Test Writer 3"));
+            pl.addEvent(new Events("Club Meeting", 2, "Test Writer 1" ));
+            pl.addEvent(new Events("Job Interview", 5, "Test Writer 2"));
+            pl.addEvent(new Events("Laundry Day", 4, "Test Writer 3"));
 
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralPlanner.json");
             writer.open();
@@ -60,7 +60,7 @@ public class JsonWriterTest extends JsonTest {
             JsonReader reader = new JsonReader("./data/testWriterGeneralPlanner.json");
             pl = reader.read();
             assertEquals("My Planner", pl.getPlannerName());
-            List<Event> events = pl.getEvents();
+            List<Events> events = pl.getEvents();
             assertEquals(3, events.size());
             checkEvent("Club Meeting", 2, "Test Writer 1", events.get(0));
             checkEvent("Job Interview", 5, "Test Writer 2", events.get(1));

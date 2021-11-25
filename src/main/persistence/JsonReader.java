@@ -1,6 +1,6 @@
 package persistence;
 
-import model.Event;
+import model.Events;
 import model.Planner;
 
 import java.io.IOException;
@@ -63,7 +63,7 @@ public class JsonReader {
         String name = jsonObject.getString("name");
         Integer day = jsonObject.getInt("day");
         String desc = jsonObject.getString("description");
-        Event event = new Event(name, day, desc);
-        pl.addEvent(event);
+        Events events = new Events(name, day, desc);
+        pl.addEvent(events);
     }
 }

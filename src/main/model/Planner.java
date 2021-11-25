@@ -11,7 +11,7 @@ import java.util.List;
 //Represents a planner, which is a list of events scheduled for the upcoming week (Monday to Sunday)
 
 public class Planner implements Writable {
-    private ArrayList<Event> eventsList;
+    private ArrayList<Events> eventsList;
     private String plannerName;
 
     //Constructs a planner with an empty schedule and name
@@ -22,8 +22,8 @@ public class Planner implements Writable {
 
     //MODIFIES: this
     //EFFECTS: adds an Event to the EventsList.
-    public void addEvent(Event event) {
-        eventsList.add(event);
+    public void addEvent(Events events) {
+        eventsList.add(events);
     }
 
     //EFFECTS: returns how many items are currently in the planner
@@ -40,7 +40,7 @@ public class Planner implements Writable {
     //EFFECTS: removes an Event from the events list
     public void removeEvent(String name) {
         for (int i = 0; i < eventsList.size(); i++) {
-            Event e = eventsList.get(i);
+            Events e = eventsList.get(i);
             if (e.getEventName() == name) {
                 eventsList.remove(e);
             }
@@ -48,12 +48,12 @@ public class Planner implements Writable {
     }
 
     //EFFECTS: Returns the requested Event from the list
-    public Event numEvent(int i) {
+    public Events numEvent(int i) {
         return eventsList.get(i);
     }
 
     // EFFECTS: returns an unmodifiable list of events in this planner
-    public List<Event> getEvents() {
+    public List<Events> getEvents() {
         return Collections.unmodifiableList(eventsList);
     }
 
@@ -69,7 +69,7 @@ public class Planner implements Writable {
     private JSONArray eventsToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (Event e : eventsList) {
+        for (Events e : eventsList) {
             jsonArray.put(e.toJson());
         }
 
