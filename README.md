@@ -72,3 +72,9 @@ Thu Nov 25 21:31:46 PST 2021
 New event created: Water Plants at Friday
 
 Process finished with exit code 0
+
+
+##Phase 4: Task 3
+
+Overall, I'm pretty happy with the design of my project. As my project was fairly simple, I think the design of it was pretty clear and not overcomplicated. One thing I would change though is the name of my "Events" class. I came up with it before phase 4, and it happened to be very similar to the "Event" and "EventLog" class from AlarmSensor. It would be better to have named it something else to avoid confusion.  
+Given more time, I also would like to redo my "Initialize Date" method. As it is now, it calls 7 different methods to create a column for each day of the week. There is a lot of duplicated code here. 
