@@ -42,8 +42,6 @@ public class JsonReader {
 
     // EFFECTS: parses Planner from JSON object and returns it
     private Planner parsePlanner(JSONObject jsonObject) {
-        EventLog.getInstance().logEvent(new Event(
-                "Planner is loaded from file: Adding events..."));
         String name = jsonObject.getString("name");
         Planner pl = new Planner(name);
         addEvents(pl, jsonObject);

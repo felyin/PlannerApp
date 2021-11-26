@@ -273,7 +273,7 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
             jsonWriter.open();
             jsonWriter.write(planner);
             jsonWriter.close();
-            System.out.println("Saved " + planner.getPlannerName() + " to " + JSON_STORE);
+          //  System.out.println("Saved " + planner.getPlannerName() + " to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
@@ -285,11 +285,12 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     // EFFECTS: loads planner from file
     private void loadPlanner() {
         try {
+            planner.loadingEvents();
             planner = jsonReader.read();
-            System.out.println("Loaded " + planner.getPlannerName() + " from " + JSON_STORE);
+            //System.out.println("Loaded " + planner.getPlannerName() + " from " + JSON_STORE);
             updateDisplay();
         } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
+            //System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 
@@ -345,7 +346,7 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
     //EFFECT: Displays the pop-up window for making a new event, and creates new event based on input
     private void newEventWindow() {
         String eventName = JOptionPane.showInputDialog("What would you like to name your event?");
-        System.out.println(eventName);
+        //System.out.println(eventName);
 
         Object[] weekdays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         String eventDate = (String) JOptionPane.showInputDialog(
@@ -356,7 +357,7 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
                 new ImageIcon("data/clockicon.png"),
                 weekdays,
                 "Monday");
-        System.out.println(eventDate);
+        //System.out.println(eventDate);
         Integer dateInt = dayToInt(eventDate);
 
         Events newEvents = new Events(eventName, dateInt, "Default Description");

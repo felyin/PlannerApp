@@ -62,11 +62,17 @@ public class Planner implements Writable {
         return Collections.unmodifiableList(eventsList);
     }
 
+    public void loadingEvents() {
+        EventLog.getInstance().logEvent(new Event(
+                "Planner is loaded from file: Adding events..."));
+    }
+
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", plannerName);
         json.put("events", eventsToJson());
+        EventLog.getInstance().logEvent(new Event("Planner is saved to file."));
         return json;
     }
 
