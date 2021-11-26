@@ -37,13 +37,13 @@ public class JsonReader {
         try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
             stream.forEach(s -> contentBuilder.append(s));
         }
-
-        EventLog.getInstance().logEvent(new Event("Planner is loaded from file"));
         return contentBuilder.toString();
     }
 
     // EFFECTS: parses Planner from JSON object and returns it
     private Planner parsePlanner(JSONObject jsonObject) {
+        EventLog.getInstance().logEvent(new Event(
+                "Planner is loaded from file: Adding events..."));
         String name = jsonObject.getString("name");
         Planner pl = new Planner(name);
         addEvents(pl, jsonObject);

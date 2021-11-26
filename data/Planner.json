@@ -1,8 +1,25 @@
 {
     "name": "My Planner",
-    "events": [{
-        "name": "bbbbbbbbbbbbbbb",
-        "description": "Default Description",
-        "day": 6
-    }]
+    "events": [
+        {
+            "name": "CPSC Phase 4",
+            "description": "Default Description",
+            "day": 5
+        },
+        {
+            "name": "BIOL Midterm 2",
+            "description": "Default Description",
+            "day": 3
+        },
+        {
+            "name": "PSYC Quiz",
+            "description": "Default Description",
+            "day": 1
+        },
+        {
+            "name": "Water Plants",
+            "description": "Default Description",
+            "day": 5
+        }
+    ]
 }

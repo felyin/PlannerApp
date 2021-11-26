@@ -511,22 +511,5 @@ public class PlannerAppGUI extends JFrame implements ActionListener {
             editEventWindow();
         }
         repaintRevalidatePanels();
-
-    }
-
-    /**
-     * Represents the action to be taken when the user wants to
-     * print the event log.
-     */
-    private class PrintLogAction extends AbstractAction {
-        PrintLogAction() {
-            super("Print log to...");
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent evt) {
-            System.out.println(EventLog.getInstance());
-        }
-
     }
 }

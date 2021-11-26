@@ -24,7 +24,7 @@ public class Planner implements Writable {
     //EFFECTS: adds an Event to the EventsList.
     public void addEvent(Events events) {
         EventLog.getInstance().logEvent(new Event(
-                "New event created! Event:" + events.getEventName() + " at " + events.getEventDateString()));
+                "New event created: " + events.getEventName() + " at " + events.getEventDateString()));
         eventsList.add(events);
     }
 
